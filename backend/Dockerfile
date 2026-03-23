@@ -3,16 +3,16 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files first (better caching)
+# Copy package files
 COPY package*.json ./
 
 # Install dependencies
 RUN npm ci --legacy-peer-deps
 
-# Copy source code
+# Copy all source files
 COPY . .
 
-# Build the application
+# Build
 RUN npm run build
 
 # Production stage
@@ -22,10 +22,13 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copy built files
+# Copy everything needed for runtime
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.medusa ./.medusa
+COPY --from=builder /app/medusa-config.ts ./
 COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/tsconfig.json ./
+COPY --from=builder /app/src ./src
 
 EXPOSE 9000
 
