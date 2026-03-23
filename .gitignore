@@ -1,0 +1,62 @@
+# ===========================
+# MedPharma Plus - E-commerce
+# Root .gitignore
+# ===========================
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Environment files (IMPORTANT: contains secrets)
+.env
+.env.local
+.env.*.local
+*.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# PlanFlow local config (contains project-specific settings)
+# Note: .plan-config.json is gitignored to avoid conflicts between team members
+.plan-config.json
+.plan-pending-sync.json
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.backup
+
+# Database dumps
+*.sql
+*.dump
+dump.rdb
+
+# SSL certificates (if local)
+*.pem
+*.key
+*.crt
