@@ -12,7 +12,7 @@ RUN npm ci --legacy-peer-deps
 # Copy all source files
 COPY . .
 
-# Build
+# Build backend and admin
 RUN npm run build
 
 # Production stage
@@ -29,6 +29,9 @@ COPY --from=builder /app/medusa-config.ts ./
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/src ./src
+
+# Copy admin build (important!)
+COPY --from=builder /app/.medusa/admin ./.medusa/admin
 
 EXPOSE 9000
 

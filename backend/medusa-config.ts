@@ -19,6 +19,8 @@ module.exports = defineConfig({
   // Admin configuration
   admin: {
     backendUrl: process.env.MEDUSA_BACKEND_URL || "http://localhost:9000",
+    // Disable admin in production (served separately or access via /app)
+    disable: process.env.NODE_ENV === "production",
   },
 
   // Module configuration
