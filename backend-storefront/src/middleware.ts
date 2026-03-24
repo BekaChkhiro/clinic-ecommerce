@@ -104,6 +104,11 @@ async function getCountryCode(
  * Middleware to handle region selection and onboarding status.
  */
 export async function middleware(request: NextRequest) {
+  // Skip middleware for static assets early
+  if (request.nextUrl.pathname.includes(".")) {
+    return NextResponse.next()
+  }
+
   let redirectUrl = request.nextUrl.href
 
   let response = NextResponse.redirect(redirectUrl, 307)
@@ -112,7 +117,13 @@ export async function middleware(request: NextRequest) {
 
   let cacheId = cacheIdCookie?.value || crypto.randomUUID()
 
-  const regionMap = await getRegionMap(cacheId)
+  let regionMap: Map<string, HttpTypes.StoreRegion> | null = null
+  try {
+    regionMap = await getRegionMap(cacheId)
+  } catch (error) {
+    console.error("Middleware: Failed to fetch regions:", error)
+    return NextResponse.next()
+  }
 
   const countryCode = regionMap && (await getCountryCode(request, regionMap))
 
