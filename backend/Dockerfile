@@ -2,29 +2,29 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Build arg for admin backend URL
 ARG MEDUSA_BACKEND_URL
 ENV MEDUSA_BACKEND_URL=$MEDUSA_BACKEND_URL
 
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies
 RUN npm ci --legacy-peer-deps
-
-# Copy all source files
 COPY . .
-
-# Build backend + admin
 RUN npm run build
-
-# Verify admin exists after build
 RUN test -f .medusa/server/public/admin/index.html && echo "Admin OK" || exit 1
 
 ENV NODE_ENV=production
 ENV PORT=9000
-
 EXPOSE 9000
 
-# Debug at startup then start
-CMD sh -c "echo '=== Runtime check ===' && ls -la .medusa/server/public/admin/ && find .medusa -name index.html && npm run start"
+# Find where medusa looks for admin and start
+CMD sh -c "\
+  echo 'PWD:' && pwd && \
+  echo 'Checking all possible admin locations:' && \
+  ls .medusa/server/public/admin/index.html 2>/dev/null && echo 'Found in .medusa/server/public/admin/' || true && \
+  ls .medusa/admin/index.html 2>/dev/null && echo 'Found in .medusa/admin/' || true && \
+  ls build/admin/index.html 2>/dev/null && echo 'Found in build/admin/' || true && \
+  ls public/admin/index.html 2>/dev/null && echo 'Found in public/admin/' || true && \
+  ls .medusa/server/build/admin/index.html 2>/dev/null && echo 'Found in .medusa/server/build/admin/' || true && \
+  echo '--- Grepping medusa source for admin path ---' && \
+  grep -r 'admin build directory' node_modules/@medusajs/medusa/dist/ 2>/dev/null | head -3 && \
+  grep -r 'index.html' node_modules/@medusajs/medusa/dist/commands/start.js 2>/dev/null | head -5 && \
+  npm run start"
