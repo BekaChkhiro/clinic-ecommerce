@@ -18,7 +18,7 @@ COPY . .
 # Build backend + admin
 RUN npm run build
 
-# Verify admin exists
+# Verify admin exists after build
 RUN test -f .medusa/server/public/admin/index.html && echo "Admin OK" || exit 1
 
 ENV NODE_ENV=production
@@ -26,4 +26,5 @@ ENV PORT=9000
 
 EXPOSE 9000
 
-CMD ["npm", "run", "start"]
+# Debug at startup then start
+CMD sh -c "echo '=== Runtime check ===' && ls -la .medusa/server/public/admin/ && find .medusa -name index.html && npm run start"
