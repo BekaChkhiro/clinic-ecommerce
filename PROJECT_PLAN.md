@@ -10,7 +10,7 @@
 | **Target Users** | დიაბეტიკები, PKU პაციენტები, ჯანსაღი კვების მოყვარულები |
 | **Created** | 2026-03-23 |
 | **Last Updated** | 2026-03-23 |
-| **Current Focus** | T6.4 - Create Product Catalog Page |
+| **Current Focus** | T5.6 - Create Banner Admin Page |
 | **Status** | In Progress |
 | **Last Updated** | 2026-03-25 |
 
@@ -20,8 +20,8 @@
 
 ### Overall Status
 **Total Tasks**: 47
-**Completed**: 20 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ (42%)
-**In Progress**: 5
+**Completed**: 21 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ (44%)
+**In Progress**: 7
 **Blocked**: 0
 
 ---
@@ -666,7 +666,7 @@ Page {
   - Add working hours editor
 
 #### T5.6: Create Banner Admin Page
-- [ ] **Status**: TODO
+- [ ] **Status**: IN_PROGRESS 🔄
 - **Complexity**: Medium
 - **Dependencies**: T2.6
 - **Estimated Hours**: 5
@@ -731,7 +731,7 @@ Page {
   - Implement locale routing ([locale]/...)
 
 #### T6.3: Create Homepage
-- [ ] **Status**: IN_PROGRESS 🔄
+- [x] **Status**: DONE ✅
 - **Complexity**: Medium
 - **Dependencies**: T6.2, T2.6
 - **Estimated Hours**: 6
@@ -742,7 +742,7 @@ Page {
   - Create promotional banners section
 
 #### T6.4: Create Product Catalog Page
-- [ ] **Status**: IN_PROGRESS 🔄
+- [x] **Status**: DONE ✅
 - **Complexity**: High
 - **Dependencies**: T6.2
 - **Estimated Hours**: 8
@@ -760,7 +760,7 @@ Page {
   - Implement search
 
 #### T6.5: Create Product Detail Page
-- [ ] **Status**: IN_PROGRESS 🔄
+- [x] **Status**: DONE ✅
 - **Complexity**: Medium
 - **Dependencies**: T6.2
 - **Estimated Hours**: 6

@@ -1,41 +1,83 @@
 import { Metadata } from "next"
+import { getTranslations } from "next-intl/server"
 
+import HeroBanner from "@modules/home/components/hero-banner"
 import FeaturedProducts from "@modules/home/components/featured-products"
-import Hero from "@modules/home/components/hero"
+import CategoryGrid from "@modules/home/components/category-grid"
+import PromoBanners from "@modules/home/components/promo-banners"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
+import { listBanners } from "@lib/data/banners"
+import { listCustomCategories } from "@lib/data/custom-categories"
+import { getLocale } from "@lib/data/locale-actions"
 
-export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
-  description:
-    "A performant frontend ecommerce starter template with Next.js 15 and Medusa.",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await getLocale()) || "ka"
+  const isKa = locale === "ka"
+
+  return {
+    title: isKa
+      ? "მედფარმა პლუსი - სპეციალური დიეტური პროდუქტები"
+      : "MedPharma Plus - Specialty Dietary Products",
+    description: isKa
+      ? "სპეციალური დიეტური პროდუქტების ონლაინ მაღაზია - შაქრის შემცვლელები, დაბალცილებიანი PKU პროდუქტები, უგლუტენო პროდუქტები"
+      : "Online store for specialty dietary products - sugar substitutes, low protein PKU products, gluten-free products",
+  }
 }
 
 export default async function Home(props: {
   params: Promise<{ countryCode: string }>
 }) {
   const params = await props.params
-
   const { countryCode } = params
 
-  const region = await getRegion(countryCode)
+  const locale = (await getLocale()) || "ka"
+  const t = await getTranslations("home")
 
-  const { collections } = await listCollections({
-    fields: "id, handle, title",
-  })
+  // Fetch all data in parallel
+  const [region, collectionsResult, heroBanners, promoBanners, categories] =
+    await Promise.all([
+      getRegion(countryCode),
+      listCollections({ fields: "id, handle, title" }),
+      listBanners("homepage").catch(() => []),
+      listBanners("category").catch(() => []),
+      listCustomCategories().catch(() => []),
+    ])
 
-  if (!collections || !region) {
+  if (!region) {
     return null
   }
 
+  const collections = collectionsResult?.collections || []
+
   return (
     <>
-      <Hero />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
-        </ul>
-      </div>
+      {/* Hero Banner Slider */}
+      <HeroBanner banners={heroBanners} locale={locale} />
+
+      {/* Category Cards Grid */}
+      <CategoryGrid
+        categories={categories}
+        locale={locale}
+        title={t("topCategories")}
+      />
+
+      {/* Featured Products by Collection */}
+      {collections.length > 0 && (
+        <div className="bg-gray-50 py-4">
+          <div className="content-container">
+            <h2 className="text-2xl small:text-3xl font-bold text-gray-900 pt-8 text-center">
+              {t("featuredProducts")}
+            </h2>
+          </div>
+          <ul className="flex flex-col">
+            <FeaturedProducts collections={collections} region={region} />
+          </ul>
+        </div>
+      )}
+
+      {/* Promotional Banners */}
+      <PromoBanners banners={promoBanners} locale={locale} />
     </>
   )
 }

@@ -68,17 +68,26 @@
   },
   "product": {
     "description": "Description",
-    "details": "Details",
+    "details": "Product Details",
     "brand": "Brand",
     "manufacturer": "Manufacturer",
-    "country": "Country",
+    "country": "Country of Origin",
     "weight": "Weight",
+    "material": "Material",
+    "type": "Type",
     "relatedProducts": "Related Products",
+    "shippingReturns": "Shipping & Returns",
     "tags": {
       "sugarFree": "Sugar Free",
       "lowProtein": "Low Protein",
       "diabeticFriendly": "Diabetic Friendly",
       "glutenFree": "Gluten Free"
+    },
+    "shipping": {
+      "fastDeliveryTitle": "Fast Delivery",
+      "fastDeliveryDesc": "Within 2 hours during business hours. Outside business hours — next business day.",
+      "returnsTitle": "Returns Policy",
+      "returnsDesc": "If the product does not meet your expectations, contact us for a return request."
     }
   },
   "checkout": {
@@ -148,7 +157,7 @@
   },
   "disclaimers": {
     "supplement": "This is not a medicinal product.",
-    "specialFood": "Use under medical supervision. Special purpose nutritional product.",
-    "medication": "Read the instructions before use. Consult a doctor about side effects."
+    "specialFood": "Use under medical supervision. Special purpose nutritional product. Use as recommended by a physician.",
+    "medication": "Read the instructions before use. Consult a doctor about side effects. Do not exceed the recommended daily dose."
   }
 }

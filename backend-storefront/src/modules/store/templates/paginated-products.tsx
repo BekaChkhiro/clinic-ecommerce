@@ -1,8 +1,10 @@
+import { getTranslations } from "next-intl/server"
 import { listProductsWithSort } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
-import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import { SortOptions } from "@modules/store/components/sort-dropdown"
+import { StoreFilters } from "./index"
 
 const PRODUCT_LIMIT = 12
 
@@ -12,6 +14,7 @@ type PaginatedProductsParams = {
   category_id?: string[]
   id?: string[]
   order?: string
+  q?: string
 }
 
 export default async function PaginatedProducts({
@@ -21,6 +24,7 @@ export default async function PaginatedProducts({
   categoryId,
   productsIds,
   countryCode,
+  filters,
 }: {
   sortBy?: SortOptions
   page: number
@@ -28,7 +32,10 @@ export default async function PaginatedProducts({
   categoryId?: string
   productsIds?: string[]
   countryCode: string
+  filters?: StoreFilters
 }) {
+  const t = await getTranslations("store")
+
   const queryParams: PaginatedProductsParams = {
     limit: 12,
   }
@@ -43,6 +50,11 @@ export default async function PaginatedProducts({
 
   if (productsIds) {
     queryParams["id"] = productsIds
+  }
+
+  // Search query
+  if (filters?.q) {
+    queryParams["q"] = filters.q
   }
 
   if (sortBy === "created_at") {
@@ -64,10 +76,62 @@ export default async function PaginatedProducts({
     countryCode,
   })
 
+  // Client-side filtering for custom fields (metadata-based)
+  // These filters are applied after fetching since custom extensions
+  // aren't directly queryable through the standard Medusa product API
+  if (filters?.dietary) {
+    const tags = filters.dietary.split(",").filter(Boolean)
+    const tagToMetaKey: Record<string, string> = {
+      sugar_free: "is_sugar_free",
+      low_protein: "is_low_protein",
+      diabetic_friendly: "is_diabetic_friendly",
+      gluten_free: "is_gluten_free",
+    }
+
+    products = products.filter((p) => {
+      const meta = (p.metadata || {}) as Record<string, any>
+      return tags.every((tag) => {
+        const key = tagToMetaKey[tag]
+        return key && meta[key] === true
+      })
+    })
+    count = products.length
+  }
+
+  // Filter by stock availability
+  if (filters?.inStock === "true") {
+    products = products.filter((p) =>
+      p.variants?.some(
+        (v) =>
+          v.inventory_quantity != null && v.inventory_quantity > 0
+      )
+    )
+    count = products.length
+  }
+
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
+
+  if (products.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-16 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-ui-fg-muted mb-4">
+          <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+        </svg>
+        <p className="text-lg font-medium text-ui-fg-base mb-2">
+          {t("noProducts")}
+        </p>
+        <p className="text-sm text-ui-fg-muted">
+          {t("noProductsHint")}
+        </p>
+      </div>
+    )
+  }
 
   return (
     <>
+      <p className="text-sm text-ui-fg-muted mb-4">
+        {t("showingResults", { count })}
+      </p>
       <ul
         className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
         data-testid="products-list"
