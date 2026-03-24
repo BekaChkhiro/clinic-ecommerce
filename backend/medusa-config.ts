@@ -24,6 +24,34 @@ module.exports = defineConfig({
   // Module configuration
   modules: {
     // ============================================
+    // PRODUCT EXTENSION MODULE - Custom product fields
+    // ============================================
+    productExtension: {
+      resolve: "./src/modules/product-extension",
+    },
+
+    // ============================================
+    // DELIVERY ZONE MODULE - Delivery zones and fees
+    // ============================================
+    deliveryZone: {
+      resolve: "./src/modules/delivery-zone",
+    },
+
+    // ============================================
+    // BRANCH MODULE - Pharmacy pickup locations
+    // ============================================
+    branch: {
+      resolve: "./src/modules/branch",
+    },
+
+    // ============================================
+    // BANNER MODULE - Promotional banners
+    // ============================================
+    banner: {
+      resolve: "./src/modules/banner",
+    },
+
+    // ============================================
     // RESEND NOTIFICATION MODULE - Email Service
     // ============================================
     resend_notification: {
