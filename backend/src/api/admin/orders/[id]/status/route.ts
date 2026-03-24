@@ -1,5 +1,5 @@
 import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { ContainerRegistrationKeys, Modules, MedusaError } from "@medusajs/framework/utils"
+import { ContainerRegistrationKeys, Modules } from "@medusajs/framework/utils"
 import type { IEventBusService } from "@medusajs/framework/types"
 import { ORDER_STATUS_MODULE } from "../../../../../modules/order-status"
 import OrderStatusModuleService from "../../../../../modules/order-status/service"
@@ -91,13 +91,16 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
 
       // Emit event for notifications
       const eventBus = req.scope.resolve<IEventBusService>(Modules.EVENT_BUS)
-      await eventBus.emit("order-status.changed", {
-        order_id: id,
-        new_status: status,
-        previous_status: existingStatus.status,
-        courier_name,
-        courier_phone,
-        cancellation_reason,
+      await eventBus.emit({
+        name: "order-status.changed",
+        data: {
+          order_id: id,
+          new_status: status,
+          previous_status: existingStatus.status,
+          courier_name,
+          courier_phone,
+          cancellation_reason,
+        },
       })
 
       res.json({
@@ -117,7 +120,7 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
         }
       }
 
-      const orderStatus = await orderStatusService.createOrderStatuses({
+      const orderStatus = await orderStatusService.createOrderStatus({
         status,
         courier_name: status === "COURIER_ASSIGNED" ? courier_name : undefined,
         courier_phone: status === "COURIER_ASSIGNED" ? courier_phone : undefined,
@@ -134,13 +137,16 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
       // Emit event for notifications (skip for PENDING - that's the default)
       if (status !== "PENDING") {
         const eventBus = req.scope.resolve<IEventBusService>(Modules.EVENT_BUS)
-        await eventBus.emit("order-status.changed", {
-          order_id: id,
-          new_status: status,
-          previous_status: "PENDING",
-          courier_name,
-          courier_phone,
-          cancellation_reason,
+        await eventBus.emit({
+          name: "order-status.changed",
+          data: {
+            order_id: id,
+            new_status: status,
+            previous_status: "PENDING",
+            courier_name,
+            courier_phone,
+            cancellation_reason,
+          },
         })
       }
 

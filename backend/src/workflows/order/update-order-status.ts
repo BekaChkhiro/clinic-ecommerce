@@ -78,10 +78,10 @@ const updateStatusStep = createStep(
       updateData.notes = input.notes
     }
 
-    const updated = await orderStatusService.updateOrderStatuses(
-      input.order_status_id,
-      updateData
-    )
+    const updated = await orderStatusService.updateOrderStatus({
+      id: input.order_status_id,
+      ...updateData,
+    })
 
     return new StepResponse(updated, {
       order_status_id: input.order_status_id,
@@ -96,10 +96,10 @@ const updateStatusStep = createStep(
       ORDER_STATUS_MODULE
     )
 
-    await orderStatusService.updateOrderStatuses(
-      revertData.order_status_id,
-      { status: revertData.previous_status }
-    )
+    await orderStatusService.updateOrderStatus({
+      id: revertData.order_status_id,
+      status: revertData.previous_status,
+    })
   }
 )
 
