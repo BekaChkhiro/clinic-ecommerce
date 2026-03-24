@@ -15,7 +15,7 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
 export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   const service = req.scope.resolve<BranchModuleService>(BRANCH_MODULE)
 
-  const branch = await service.updateBranchs({
+  const branch = await service.updateBranches({
     id: req.params.id,
     ...(req.body as Record<string, unknown>),
   })
@@ -27,7 +27,7 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
 export const DELETE = async (req: MedusaRequest, res: MedusaResponse) => {
   const service = req.scope.resolve<BranchModuleService>(BRANCH_MODULE)
 
-  await service.deleteBranchs(req.params.id)
+  await service.deleteBranches(req.params.id)
 
   res.status(200).json({
     id: req.params.id,

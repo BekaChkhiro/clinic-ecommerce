@@ -28,7 +28,7 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
 export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   const service = req.scope.resolve<BranchModuleService>(BRANCH_MODULE)
 
-  const branch = await service.createBranchs(
+  const branch = await service.createBranches(
     req.body as Record<string, unknown>
   )
 

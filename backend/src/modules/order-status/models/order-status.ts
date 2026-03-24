@@ -1,6 +1,6 @@
 import { model } from "@medusajs/framework/utils"
 
-export const OrderStatuses = [
+export const OrderStatuses: string[] = [
   "PENDING",
   "CONFIRMED",
   "PACKED",
@@ -8,7 +8,7 @@ export const OrderStatuses = [
   "SHIPPED",
   "DELIVERED",
   "CANCELLED",
-] as const
+]
 
 const OrderStatus = model.define("custom_order_status", {
   id: model.id().primaryKey(),
