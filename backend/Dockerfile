@@ -5,19 +5,22 @@ WORKDIR /app
 
 # Build arg for admin backend URL
 ARG MEDUSA_BACKEND_URL
+ENV MEDUSA_BACKEND_URL=$MEDUSA_BACKEND_URL
 
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
+# Install all dependencies (including devDependencies for admin build)
 RUN npm ci --legacy-peer-deps
 
 # Copy all source files
 COPY . .
 
 # Build backend and admin
-ENV MEDUSA_BACKEND_URL=$MEDUSA_BACKEND_URL
 RUN npm run build
+
+# Verify admin build exists
+RUN ls -la .medusa/server/public/admin/ && echo "Admin build OK" || echo "WARNING: Admin build missing"
 
 # Production stage
 FROM node:20-alpine AS runner
