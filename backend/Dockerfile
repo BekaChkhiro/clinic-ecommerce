@@ -30,9 +30,6 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/src ./src
 
-# Copy admin build (important!)
-COPY --from=builder /app/.medusa/admin ./.medusa/admin
-
 EXPOSE 9000
 
 CMD ["npm", "run", "start"]
