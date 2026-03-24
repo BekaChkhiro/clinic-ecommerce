@@ -1,5 +1,5 @@
-# Build stage
-FROM node:20-alpine AS builder
+# Build stage - use full node (not alpine) for reliable admin build
+FROM node:20 AS builder
 
 WORKDIR /app
 
@@ -10,19 +10,22 @@ ENV MEDUSA_BACKEND_URL=$MEDUSA_BACKEND_URL
 # Copy package files
 COPY package*.json ./
 
-# Install all dependencies (including devDependencies for admin build)
+# Install all dependencies (including devDependencies for Vite/admin build)
 RUN npm ci --legacy-peer-deps
 
 # Copy all source files
 COPY . .
 
-# Build backend and admin
+# Build backend + admin
 RUN npm run build
 
-# Verify admin build exists
-RUN ls -la .medusa/server/public/admin/ && echo "Admin build OK" || echo "WARNING: Admin build missing"
+# Debug: verify admin build
+RUN echo "=== Checking admin build ===" && \
+    find .medusa -name "index.html" && \
+    ls -la .medusa/server/public/admin/ 2>/dev/null || echo "Admin NOT in server/public/admin" && \
+    ls -la .medusa/client/ 2>/dev/null || echo "Admin NOT in client/"
 
-# Production stage
+# Production stage - use alpine for smaller image
 FROM node:20-alpine AS runner
 
 WORKDIR /app
