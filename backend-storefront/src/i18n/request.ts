@@ -2,9 +2,13 @@ import { getRequestConfig } from "next-intl/server"
 import { cookies } from "next/headers"
 import { defaultLocale, type Locale, locales } from "./config"
 
+const LOCALE_COOKIE_NAME = "_medusa_locale"
+
 export default getRequestConfig(async () => {
   const cookieStore = await cookies()
-  const localeCookie = cookieStore.get("locale")?.value as Locale | undefined
+  const localeCookie = cookieStore.get(LOCALE_COOKIE_NAME)?.value as
+    | Locale
+    | undefined
   const locale =
     localeCookie && locales.includes(localeCookie) ? localeCookie : defaultLocale
 
