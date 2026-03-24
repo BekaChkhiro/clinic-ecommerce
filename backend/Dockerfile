@@ -29,7 +29,7 @@ RUN if [ -f .medusa/client/index.html ] && [ ! -f .medusa/server/public/admin/in
       cp -r .medusa/client/* .medusa/server/public/admin/; \
     fi
 
-# Production stage
+# Production stage - cache bust v2
 FROM node:20-alpine AS runner
 
 WORKDIR /app
