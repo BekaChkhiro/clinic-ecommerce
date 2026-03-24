@@ -34,6 +34,15 @@ module.exports = {
           80: "#1F2937",
           90: "#111827",
         },
+        brand: {
+          red: "#A90000",
+          "red-dark": "#8A0000",
+          "red-light": "#CC1A1A",
+          gray: "#CCCCCC",
+          "gray-dark": "#999999",
+          "gray-light": "#E6E6E6",
+          white: "#FFFFFF",
+        },
       },
       borderRadius: {
         none: "0px",
@@ -60,13 +69,16 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          "Inter",
+          "Arial",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Ubuntu",
+          "sans-serif",
+        ],
+        georgian: [
+          "'Noto Sans Georgian'",
+          "'BPG Glaho'",
+          "Arial",
           "sans-serif",
         ],
       },

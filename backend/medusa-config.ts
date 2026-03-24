@@ -80,6 +80,13 @@ module.exports = defineConfig({
     },
 
     // ============================================
+    // APEX ERP INTEGRATION MODULE - REST API client
+    // ============================================
+    apex: {
+      resolve: "./src/modules/apex",
+    },
+
+    // ============================================
     // RESEND NOTIFICATION MODULE - Email Service
     // ============================================
     resend_notification: {
@@ -96,6 +103,19 @@ module.exports = defineConfig({
           {
             resolve: "./src/modules/payment-cod",
             id: "cod",
+          },
+          {
+            resolve: "./src/modules/payment-bog",
+            id: "bog-ipay",
+            options: {
+              clientId: process.env.BOG_CLIENT_ID || "",
+              clientSecret: process.env.BOG_CLIENT_SECRET || "",
+              apiUrl: process.env.BOG_API_URL || "https://ipay.ge/opay/api/v1",
+              tokenUrl: process.env.BOG_TOKEN_URL || "https://ipay.ge/opay/api/v1/oauth2/token",
+              redirectUrl: process.env.BOG_REDIRECT_URL || "http://localhost:8000/payment/success",
+              failUrl: process.env.BOG_FAIL_URL || "http://localhost:8000/payment/fail",
+              callbackUrl: process.env.BOG_CALLBACK_URL || "http://localhost:9000/hooks/payment/bog-ipay",
+            },
           },
         ],
       },

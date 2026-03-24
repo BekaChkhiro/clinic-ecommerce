@@ -1,0 +1,123 @@
+{
+  "common": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "cart": "Cart",
+    "search": "Search",
+    "searchPlaceholder": "Search products...",
+    "language": "Language",
+    "currency": "Currency",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "checkout": "Checkout",
+    "continueShopping": "Continue Shopping",
+    "viewAll": "View All",
+    "readMore": "Read More",
+    "loading": "Loading...",
+    "error": "Error",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "nav": {
+    "home": "Home",
+    "store": "Store",
+    "about": "About Us",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "branches": "Branches"
+  },
+  "footer": {
+    "company": "Company",
+    "about": "About Us",
+    "contact": "Contact",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions",
+    "customerService": "Customer Service",
+    "faq": "FAQ",
+    "orderTracking": "Order Tracking",
+    "shippingInfo": "Shipping Info",
+    "returns": "Returns",
+    "followUs": "Follow Us",
+    "newsletter": "Newsletter",
+    "copyright": "© {year} MedPharma Plus. All rights reserved."
+  },
+  "home": {
+    "heroTitle": "Your Trusted Health Partner",
+    "heroSubtitle": "Specialty dietary products with European quality",
+    "shopNow": "Shop Online",
+    "featuredProducts": "Featured Products",
+    "topCategories": "Top Categories",
+    "whyChooseUs": "Why Choose Us?"
+  },
+  "product": {
+    "description": "Description",
+    "details": "Details",
+    "brand": "Brand",
+    "manufacturer": "Manufacturer",
+    "country": "Country",
+    "weight": "Weight",
+    "relatedProducts": "Related Products",
+    "tags": {
+      "sugarFree": "Sugar Free",
+      "lowProtein": "Low Protein",
+      "diabeticFriendly": "Diabetic Friendly",
+      "glutenFree": "Gluten Free"
+    }
+  },
+  "checkout": {
+    "title": "Checkout",
+    "customerInfo": "Customer Information",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "deliveryMethod": "Delivery Method",
+    "delivery": "Delivery",
+    "pickup": "Pharmacy Pickup",
+    "selectZone": "Select delivery zone",
+    "selectBranch": "Select branch",
+    "deliveryFee": "Delivery Fee",
+    "freePickup": "Free Pickup",
+    "paymentMethod": "Payment Method",
+    "payOnline": "Pay Online (BOG iPay)",
+    "cashOnDelivery": "Cash on Delivery",
+    "orderSummary": "Order Summary",
+    "placeOrder": "Place Order",
+    "orderConfirmed": "Order Confirmed!",
+    "orderNumber": "Order Number",
+    "thankYou": "Thank you for your order!"
+  },
+  "order": {
+    "tracking": "Order Tracking",
+    "enterOrderNumber": "Enter order number",
+    "enterEmail": "Enter email",
+    "trackOrder": "Track Order",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "packed": "Packed",
+      "courierAssigned": "Courier Assigned",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled"
+    }
+  },
+  "disclaimers": {
+    "supplement": "This is not a medicinal product.",
+    "specialFood": "Use under medical supervision. Special purpose nutritional product.",
+    "medication": "Read the instructions before use. Consult a doctor about side effects."
+  }
+}

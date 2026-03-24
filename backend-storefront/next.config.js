@@ -1,4 +1,7 @@
+const createNextIntlPlugin = require("next-intl/plugin")
 const checkEnvVariables = require("./check-env-variables")
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts")
 
 checkEnvVariables()
 
@@ -59,4 +62,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withNextIntl(nextConfig)

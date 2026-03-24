@@ -6,7 +6,7 @@ export default async function testResend({ container }: ExecArgs) {
   // Hardcoded test values - change these as needed
   // Note: In test mode, Resend only allows sending to the account owner's email
   const testEmail = "webinfinity17@gmail.com"
-  const template = "order-confirmation"
+  const template: string = "order-confirmation"
 
   console.log("\n📧 Testing Resend Email Service...")
   console.log(`   Email: ${testEmail}`)

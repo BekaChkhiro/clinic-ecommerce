@@ -10,7 +10,7 @@
 | **Target Users** | დიაბეტიკები, PKU პაციენტები, ჯანსაღი კვების მოყვარულები |
 | **Created** | 2026-03-23 |
 | **Last Updated** | 2026-03-23 |
-| **Current Focus** | T3.3 - Implement Delivery Zone Selection Logic |
+| **Current Focus** | T4.1 - Create APEX Integration Module |
 | **Status** | In Progress |
 | **Last Updated** | 2026-03-25 |
 
@@ -20,8 +20,8 @@
 
 ### Overall Status
 **Total Tasks**: 47
-**Completed**: 15 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ (32%)
-**In Progress**: 3
+**Completed**: 16 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ (34%)
+**In Progress**: 2
 **Blocked**: 0
 
 ---
@@ -521,7 +521,7 @@ Page {
   - Create delivery zone validation
 
 #### T3.4: Implement Branch Pickup Logic
-- [ ] **Status**: IN_PROGRESS 🔄
+- [x] **Status**: DONE ✅
 - **Complexity**: Medium
 - **Dependencies**: T2.5
 - **Estimated Hours**: 4
@@ -707,7 +707,7 @@ Page {
 > Next.js frontend-ის დეველოპმენტი
 
 #### T6.1: Setup Next.js Storefront
-- [ ] **Status**: TODO
+- [x] **Status**: DONE ✅
 - **Complexity**: Medium
 - **Dependencies**: T1.1
 - **Estimated Hours**: 5
