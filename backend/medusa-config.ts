@@ -76,9 +76,9 @@ module.exports = defineConfig({
     // DISABLED MODULES
     // ============================================
 
-    // Customer module - disabled (guest checkout only)
-    // @see PROJECT_PLAN.md - Business Requirements
-    [Modules.CUSTOMER]: false,
+    // Customer module - enabled (required by admin panel and orders)
+    // Guest checkout is handled on storefront side
+    // [Modules.CUSTOMER]: default,
 
     // Inventory module - enabled (required for product creation)
     // Note: Stock values will be synced from APEX ERP (Phase 4)
