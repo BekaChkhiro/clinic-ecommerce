@@ -87,6 +87,21 @@ module.exports = defineConfig({
     },
 
     // ============================================
+    // PAYMENT MODULE - BOG iPay + Cash on Delivery
+    // ============================================
+    [Modules.PAYMENT]: {
+      resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/payment-cod",
+            id: "cod",
+          },
+        ],
+      },
+    },
+
+    // ============================================
     // FILE MODULE - Cloudflare R2 Storage
     // ============================================
     [Modules.FILE]: {
