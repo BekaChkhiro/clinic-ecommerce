@@ -9,6 +9,7 @@
     "language": "ენა",
     "currency": "ვალუტა",
     "addToCart": "კალათაში დამატება",
+    "selectVariant": "აირჩიეთ ვარიანტი",
     "buyNow": "ყიდვა",
     "outOfStock": "არ არის მარაგში",
     "inStock": "მარაგშია",
@@ -65,17 +66,26 @@
   },
   "product": {
     "description": "აღწერა",
-    "details": "დეტალები",
+    "details": "პროდუქტის დეტალები",
     "brand": "ბრენდი",
     "manufacturer": "მწარმოებელი",
-    "country": "ქვეყანა",
+    "country": "მწარმოებელი ქვეყანა",
     "weight": "წონა",
+    "material": "მასალა",
+    "type": "ტიპი",
     "relatedProducts": "მსგავსი პროდუქტები",
+    "shippingReturns": "მიწოდება და დაბრუნება",
     "tags": {
       "sugarFree": "უშაქრო",
       "lowProtein": "დაბალცილებიანი",
       "diabeticFriendly": "დიაბეტისთვის",
       "glutenFree": "უგლუტენო"
+    },
+    "shipping": {
+      "fastDeliveryTitle": "სწრაფი მიწოდება",
+      "fastDeliveryDesc": "შეკვეთიდან 2 საათში სამუშაო საათებში. არასამუშაო საათებში - მომდევნო სამუშაო დღეს.",
+      "returnsTitle": "დაბრუნების პოლიტიკა",
+      "returnsDesc": "თუ პროდუქტი არ შეესაბამება მოლოდინს, დაგვიკავშირდით დაბრუნების მოთხოვნით."
     }
   },
   "checkout": {
@@ -114,6 +124,34 @@
       "delivered": "მიწოდებული",
       "cancelled": "გაუქმებული"
     }
+  },
+  "store": {
+    "title": "პროდუქტები",
+    "allProducts": "ყველა პროდუქტი",
+    "noProducts": "პროდუქტი ვერ მოიძებნა",
+    "noProductsHint": "სცადეთ ფილტრების ან ძიების შეცვლა",
+    "clearFilters": "ფილტრების გასუფთავება",
+    "filters": "ფილტრები",
+    "sortBy": "დალაგება",
+    "sortLatest": "უახლესი",
+    "sortPriceAsc": "ფასი: დაბლიდან მაღლა",
+    "sortPriceDesc": "ფასი: მაღლიდან დაბლა",
+    "sortNameAsc": "სახელი: ა-ჰ",
+    "categories": "კატეგორიები",
+    "allCategories": "ყველა კატეგორია",
+    "brands": "ბრენდები",
+    "allBrands": "ყველა ბრენდი",
+    "priceRange": "ფასის დიაპაზონი",
+    "minPrice": "მინ",
+    "maxPrice": "მაქს",
+    "dietaryFilters": "დიეტური ფილტრები",
+    "sugarFree": "უშაქრო",
+    "lowProtein": "დაბალცილებიანი (PKU)",
+    "diabeticFriendly": "დიაბეტისთვის",
+    "glutenFree": "უგლუტენო",
+    "inStockOnly": "მხოლოდ მარაგში",
+    "showingResults": "ნაჩვენებია {count} პროდუქტი",
+    "searchProducts": "პროდუქტის ძიება..."
   },
   "disclaimers": {
     "supplement": "არ წარმოადგენს სამკურნალო საშუალებას.",

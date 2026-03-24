@@ -12,11 +12,13 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
 import { useRouter } from "next/navigation"
+import { useTranslations } from "next-intl"
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
   region: HttpTypes.StoreRegion
   disabled?: boolean
+  locale?: string
 }
 
 const optionsAsKeymap = (
@@ -32,6 +34,7 @@ export default function ProductActions({
   product,
   disabled,
 }: ProductActionsProps) {
+  const t = useTranslations("common")
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -177,10 +180,10 @@ export default function ProductActions({
           data-testid="add-product-button"
         >
           {!selectedVariant && !options
-            ? "Select variant"
+            ? t("selectVariant")
             : !inStock || !isValidVariant
-            ? "Out of stock"
-            : "Add to cart"}
+            ? t("outOfStock")
+            : t("addToCart")}
         </Button>
         <MobileActions
           product={product}

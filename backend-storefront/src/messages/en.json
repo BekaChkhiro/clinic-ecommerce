@@ -9,6 +9,7 @@
     "language": "Language",
     "currency": "Currency",
     "addToCart": "Add to Cart",
+    "selectVariant": "Select variant",
     "buyNow": "Buy Now",
     "outOfStock": "Out of Stock",
     "inStock": "In Stock",
@@ -61,7 +62,9 @@
     "shopNow": "Shop Online",
     "featuredProducts": "Featured Products",
     "topCategories": "Top Categories",
-    "whyChooseUs": "Why Choose Us?"
+    "whyChooseUs": "Why Choose Us?",
+    "viewAllProducts": "View All Products",
+    "viewAllCategories": "View All Categories"
   },
   "product": {
     "description": "Description",
@@ -114,6 +117,34 @@
       "delivered": "Delivered",
       "cancelled": "Cancelled"
     }
+  },
+  "store": {
+    "title": "Products",
+    "allProducts": "All Products",
+    "noProducts": "No products found",
+    "noProductsHint": "Try adjusting your filters or search terms",
+    "clearFilters": "Clear Filters",
+    "filters": "Filters",
+    "sortBy": "Sort by",
+    "sortLatest": "Latest Arrivals",
+    "sortPriceAsc": "Price: Low to High",
+    "sortPriceDesc": "Price: High to Low",
+    "sortNameAsc": "Name: A to Z",
+    "categories": "Categories",
+    "allCategories": "All Categories",
+    "brands": "Brands",
+    "allBrands": "All Brands",
+    "priceRange": "Price Range",
+    "minPrice": "Min",
+    "maxPrice": "Max",
+    "dietaryFilters": "Dietary Filters",
+    "sugarFree": "Sugar Free",
+    "lowProtein": "Low Protein (PKU)",
+    "diabeticFriendly": "Diabetic Friendly",
+    "glutenFree": "Gluten Free",
+    "inStockOnly": "In Stock Only",
+    "showingResults": "Showing {count} products",
+    "searchProducts": "Search products..."
   },
   "disclaimers": {
     "supplement": "This is not a medicinal product.",

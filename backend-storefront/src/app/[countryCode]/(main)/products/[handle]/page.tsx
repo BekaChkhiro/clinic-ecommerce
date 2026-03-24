@@ -2,8 +2,10 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
+import { getProductExtension } from "@lib/data/product-extension"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
+import { getLocale } from "next-intl/server"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -73,6 +75,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const { handle } = params
   const region = await getRegion(params.countryCode)
+  const locale = await getLocale()
 
   if (!region) {
     notFound()
@@ -87,12 +90,34 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     notFound()
   }
 
+  const extension = await getProductExtension(product.id!)
+
+  const title =
+    locale === "ka" && extension?.name_ka
+      ? extension.name_ka
+      : extension?.name_en || product.title
+
+  const description =
+    locale === "ka" && extension?.description_ka
+      ? extension.description_ka
+      : extension?.description_en || product.description || ""
+
+  const metaTitle =
+    locale === "ka"
+      ? extension?.meta_title_ka || title
+      : extension?.meta_title_en || title
+
+  const metaDescription =
+    locale === "ka"
+      ? extension?.meta_description_ka || description
+      : extension?.meta_description_en || description
+
   return {
-    title: `${product.title} | Medusa Store`,
-    description: `${product.title}`,
+    title: `${metaTitle} | MedPharma Plus`,
+    description: metaDescription,
     openGraph: {
-      title: `${product.title} | Medusa Store`,
-      description: `${product.title}`,
+      title: `${metaTitle} | MedPharma Plus`,
+      description: metaDescription,
       images: product.thumbnail ? [product.thumbnail] : [],
     },
   }
@@ -102,6 +127,7 @@ export default async function ProductPage(props: Props) {
   const params = await props.params
   const region = await getRegion(params.countryCode)
   const searchParams = await props.searchParams
+  const locale = await getLocale()
 
   const selectedVariantId = searchParams.v_id
 
@@ -114,11 +140,14 @@ export default async function ProductPage(props: Props) {
     queryParams: { handle: params.handle },
   }).then(({ response }) => response.products[0])
 
-  const images = getImagesForVariant(pricedProduct, selectedVariantId)
-
   if (!pricedProduct) {
     notFound()
   }
+
+  const [images, extension] = await Promise.all([
+    Promise.resolve(getImagesForVariant(pricedProduct, selectedVariantId)),
+    getProductExtension(pricedProduct.id!),
+  ])
 
   return (
     <ProductTemplate
@@ -126,6 +155,8 @@ export default async function ProductPage(props: Props) {
       region={region}
       countryCode={params.countryCode}
       images={images ?? []}
+      extension={extension}
+      locale={locale}
     />
   )
 }
