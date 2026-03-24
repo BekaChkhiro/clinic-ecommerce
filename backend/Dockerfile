@@ -3,6 +3,9 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Build arg for admin backend URL
+ARG MEDUSA_BACKEND_URL
+
 # Copy package files
 COPY package*.json ./
 
@@ -13,6 +16,7 @@ RUN npm ci --legacy-peer-deps
 COPY . .
 
 # Build backend and admin
+ENV MEDUSA_BACKEND_URL=$MEDUSA_BACKEND_URL
 RUN npm run build
 
 # Production stage
