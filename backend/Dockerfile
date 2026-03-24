@@ -21,6 +21,7 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV PORT=9000
 
 # Copy everything needed for runtime
 COPY --from=builder /app/node_modules ./node_modules
