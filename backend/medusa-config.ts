@@ -45,10 +45,38 @@ module.exports = defineConfig({
     },
 
     // ============================================
+    // BRAND MODULE - Product brands/manufacturers
+    // ============================================
+    brand: {
+      resolve: "./src/modules/brand",
+    },
+
+    // ============================================
     // BANNER MODULE - Promotional banners
     // ============================================
     banner: {
       resolve: "./src/modules/banner",
+    },
+
+    // ============================================
+    // CATEGORY EXTENSION MODULE - Bilingual categories with hierarchy
+    // ============================================
+    categoryExtension: {
+      resolve: "./src/modules/category-extension",
+    },
+
+    // ============================================
+    // PAGE MODULE - CMS static pages
+    // ============================================
+    page: {
+      resolve: "./src/modules/page",
+    },
+
+    // ============================================
+    // ORDER STATUS MODULE - Custom order statuses
+    // ============================================
+    orderStatus: {
+      resolve: "./src/modules/order-status",
     },
 
     // ============================================

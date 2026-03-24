@@ -7,13 +7,10 @@
  */
 
 import { Module } from "@medusajs/framework/utils"
-// import PageModuleService from "./services/page"
+import PageModuleService from "./service"
 
 export const PAGE_MODULE = "page"
 
-// TODO: Implement in T2.7
-// export default Module(PAGE_MODULE, {
-//   service: PageModuleService,
-// })
-
-export default {}
+export default Module(PAGE_MODULE, {
+  service: PageModuleService,
+})
