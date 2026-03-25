@@ -39,40 +39,58 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 
   return (
     <>
+      {/* Breadcrumbs */}
       <div className="content-container py-4">
         <Breadcrumbs product={product} extension={extension} locale={locale} />
       </div>
+
+      {/* Main Product Section */}
       <div
-        className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
+        className="content-container pb-8"
         data-testid="product-container"
       >
-        <div className="block w-full relative small:w-3/5">
-          <ImageGallery images={images} />
-        </div>
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[400px] w-full py-8 gap-y-6 small:pl-8">
-          <ProductInfo product={product} extension={extension} locale={locale} />
-          {extension && <DietaryTags extension={extension} locale={locale} />}
-          <ProductOnboardingCta />
-          <Suspense
-            fallback={
-              <ProductActions
-                disabled={true}
-                product={product}
-                region={region}
-                locale={locale}
-              />
-            }
-          >
-            <ProductActionsWrapper id={product.id} region={region} locale={locale} />
-          </Suspense>
-          {extension && <ProductDisclaimer extension={extension} locale={locale} />}
+        <div className="grid grid-cols-1 small:grid-cols-12 gap-8">
+          {/* Left: Image Gallery */}
+          <div className="small:col-span-7 group">
+            <ImageGallery images={images} />
+          </div>
+
+          {/* Right: Product Info */}
+          <div className="small:col-span-5">
+            <div className="flex flex-col gap-y-6 small:sticky small:top-32">
+              <ProductInfo product={product} extension={extension} locale={locale} />
+
+              {extension && <DietaryTags extension={extension} locale={locale} />}
+
+              <ProductOnboardingCta />
+
+              <Suspense
+                fallback={
+                  <ProductActions
+                    disabled={true}
+                    product={product}
+                    region={region}
+                    locale={locale}
+                  />
+                }
+              >
+                <ProductActionsWrapper id={product.id} region={region} locale={locale} />
+              </Suspense>
+
+              {extension && <ProductDisclaimer extension={extension} locale={locale} />}
+            </div>
+          </div>
         </div>
       </div>
-      <div className="content-container my-8">
+
+      {/* Tabs */}
+      <div className="content-container py-8 border-t border-gray-100">
         <ProductTabs product={product} extension={extension} locale={locale} />
       </div>
+
+      {/* Related Products */}
       <div
-        className="content-container my-16 small:my-32"
+        className="content-container py-12 small:py-16"
         data-testid="related-products-container"
       >
         <Suspense fallback={<SkeletonRelatedProducts />}>
