@@ -10,7 +10,7 @@
 | **Target Users** | დიაბეტიკები, PKU პაციენტები, ჯანსაღი კვების მოყვარულები |
 | **Created** | 2026-03-23 |
 | **Last Updated** | 2026-03-23 |
-| **Current Focus** | T6.10 - Create Static Pages |
+| **Current Focus** | T3.1 - Create BOG iPay Payment Provider |
 | **Status** | In Progress |
 | **Last Updated** | 2026-03-25 |
 
@@ -20,7 +20,7 @@
 
 ### Overall Status
 **Total Tasks**: 47
-**Completed**: 26 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ (55%)
+**Completed**: 28 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ (59%)
 **In Progress**: 4
 **Blocked**: 0
 
@@ -689,7 +689,7 @@ Page {
   - Add SEO fields section
 
 #### T5.8: Create Reports Dashboard
-- [ ] **Status**: TODO
+- [x] **Status**: DONE ✅
 - **Complexity**: High
 - **Dependencies**: T2.8
 - **Estimated Hours**: 8
@@ -825,7 +825,7 @@ Page {
   - Show wishlist count in header
 
 #### T6.10: Create Static Pages
-- [ ] **Status**: IN_PROGRESS 🔄
+- [x] **Status**: DONE ✅
 - **Complexity**: Low
 - **Dependencies**: T6.2, T2.7
 - **Estimated Hours**: 4

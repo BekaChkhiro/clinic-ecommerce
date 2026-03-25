@@ -52,6 +52,7 @@
     "orderTracking": "Order Tracking",
     "shippingInfo": "Shipping Info",
     "returns": "Returns",
+    "categories": "Categories",
     "followUs": "Follow Us",
     "newsletter": "Newsletter",
     "copyright": "© {year} MedPharma Plus. All rights reserved."
@@ -188,6 +189,11 @@
     "itemCount": "{count} products saved",
     "remove": "Remove",
     "productUnavailable": "Product unavailable"
+  },
+  "pages": {
+    "notFound": "Page not found",
+    "notFoundDescription": "The page you are looking for does not exist or has been removed.",
+    "backToHome": "Back to Home"
   },
   "disclaimers": {
     "supplement": "This is not a medicinal product.",

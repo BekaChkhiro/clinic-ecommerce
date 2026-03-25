@@ -30,12 +30,24 @@ interface RawProduct {
 // ── Helpers ──
 
 function slugify(text: string): string {
-  return text
-    .toLowerCase()
+  // Transliterate common Cyrillic
+  const cyrillic: Record<string, string> = {
+    а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "yo", ж: "zh",
+    з: "z", и: "i", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o",
+    п: "p", р: "r", с: "s", т: "t", у: "u", ф: "f", х: "kh", ц: "ts",
+    ч: "ch", ш: "sh", щ: "shch", ъ: "", ы: "y", ь: "", э: "e", ю: "yu", я: "ya",
+    М: "m", а: "a", к: "k",
+  }
+  let result = text.toLowerCase()
+  for (const [k, v] of Object.entries(cyrillic)) {
+    result = result.split(k.toLowerCase()).join(v)
+  }
+  return result
     .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
-    .trim()
+    .replace(/^-|-$/g, "")
+    .trim() || "product"
 }
 
 function generateSku(product: RawProduct): string {
@@ -87,36 +99,45 @@ export default async function importProducts({ container }: ExecArgs) {
   }
   const shippingProfileId = shippingProfiles[0].id
 
-  // Get existing product categories (created by seed)
+  // Create product categories if they don't exist
+  const categoryMap: Record<string, string> = {}
+  const neededCategories = [
+    { name: "Sugar Substitutes", handle: "sugar-substitutes" },
+    { name: "Chicory Coffee", handle: "chicory-coffee" },
+    { name: "Sugar-Free Snacks", handle: "sugar-free-snacks" },
+    { name: "Low Protein (PKU)", handle: "low-protein-pku" },
+  ]
+
   const { data: existingCategories } = await query.graph({
     entity: "product_category",
     fields: ["id", "handle", "name"],
   })
-  logger.info(`Found ${existingCategories.length} existing categories`)
 
-  const categoryMap: Record<string, string> = {}
   for (const cat of existingCategories) {
-    if (cat.handle) {
-      categoryMap[cat.handle] = cat.id
-    }
+    if (cat.handle) categoryMap[cat.handle] = cat.id
   }
 
-  // Verify we have the needed categories
-  const neededCategories = [
-    "sugar-substitutes",
-    "chicory-coffee",
-    "sugar-free-snacks",
-    "low-protein-pku",
-  ]
-  for (const handle of neededCategories) {
-    if (!categoryMap[handle]) {
-      logger.warn(`Category "${handle}" not found! Products in this category will have no category.`)
+  const productCategoryService = container.resolve(Modules.PRODUCT)
+  for (const needed of neededCategories) {
+    if (!categoryMap[needed.handle]) {
+      try {
+        const [created] = await (productCategoryService as any).createProductCategories([
+          { name: needed.name, handle: needed.handle, is_active: true },
+        ])
+        categoryMap[needed.handle] = created.id
+        logger.info(`  Created category: ${needed.name}`)
+      } catch (e: any) {
+        logger.warn(`  Failed to create category "${needed.name}": ${e.message}`)
+      }
+    } else {
+      logger.info(`  Category "${needed.name}" already exists`)
     }
   }
+  logger.info(`Categories ready: ${Object.keys(categoryMap).length}`)
 
   // ── Step 3: Create brands ──
   logger.info("Creating brands...")
-  const brandService = container.resolve("brandModuleService") as any
+  const brandService = container.resolve("brand") as any
 
   const brandData = [
     { name_ka: "ნოვასვიტი", name_en: "Novasweet", slug: "novasweet", country: "Russia" },
@@ -193,11 +214,18 @@ export default async function importProducts({ container }: ExecArgs) {
   }
   logger.info(`Uploaded ${Object.keys(imageUrlMap).length} images`)
 
-  // ── Step 5: Create products in batches ──
-  logger.info("Creating products...")
+  // ── Step 5: Check existing products and create new ones ──
+  logger.info("Checking existing products...")
 
-  // Process in batches of 10
-  const BATCH_SIZE = 10
+  const { data: existingProducts } = await query.graph({
+    entity: "product",
+    fields: ["id", "handle"],
+  })
+  const existingHandles = new Set(existingProducts.map((p: any) => p.handle))
+  logger.info(`Found ${existingProducts.length} existing products`)
+
+  // Process in batches of 5 (smaller batches = fewer link conflicts)
+  const BATCH_SIZE = 5
   let created = 0
   let skipped = 0
 
@@ -205,7 +233,15 @@ export default async function importProducts({ container }: ExecArgs) {
     const batch = rawProducts.slice(i, i + BATCH_SIZE)
 
     const productsInput = batch
-      .filter((p) => p.name && p.price > 0)
+      .filter((p) => {
+        if (!p.name || p.price <= 0) return false
+        const handle = `medpharma-${p.num}-${slugify(p.manufacturer || "product")}`
+        if (existingHandles.has(handle)) {
+          skipped++
+          return false
+        }
+        return true
+      })
       .map((p) => {
         const priceInTetri = Math.round(p.price * 100)
         const imageUrl = imageUrlMap[p.num]
@@ -259,7 +295,7 @@ export default async function importProducts({ container }: ExecArgs) {
 
       // Link product extensions and brands
       const productExtService = container.resolve(
-        "productExtensionModuleService"
+        "productExtension"
       ) as any
 
       for (let j = 0; j < result.length; j++) {
@@ -291,7 +327,7 @@ export default async function importProducts({ container }: ExecArgs) {
           // Link extension to product
           await link.create({
             [Modules.PRODUCT]: { product_id: medusaProduct.id },
-            productExtensionModuleService: {
+            productExtension: {
               product_extension_id: extension.id,
             },
           })
@@ -314,7 +350,7 @@ export default async function importProducts({ container }: ExecArgs) {
           try {
             await link.create({
               [Modules.PRODUCT]: { product_id: medusaProduct.id },
-              brandModuleService: { brand_id: brandMap[brandSlug] },
+              brand: { brand_id: brandMap[brandSlug] },
             })
           } catch (e: any) {
             logger.warn(
@@ -335,7 +371,7 @@ export default async function importProducts({ container }: ExecArgs) {
   // ── Step 6: Create category extensions (custom bilingual categories) ──
   logger.info("Creating category extensions...")
   const categoryExtService = container.resolve(
-    "categoryExtensionModuleService"
+    "categoryExtension"
   ) as any
 
   const categoryExtData = [

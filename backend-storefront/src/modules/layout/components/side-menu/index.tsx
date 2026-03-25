@@ -27,6 +27,9 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
     { name: t("nav.home"), href: "/", testId: "home-link" },
     { name: t("nav.store"), href: "/store", testId: "store-link" },
     { name: t("common.cart"), href: "/cart", testId: "cart-link" },
+    { name: t("nav.about"), href: "/pages/about", testId: "about-link" },
+    { name: t("nav.contact"), href: "/pages/contact", testId: "contact-link" },
+    { name: t("nav.faq"), href: "/pages/faq", testId: "faq-link" },
   ]
 
   return (
