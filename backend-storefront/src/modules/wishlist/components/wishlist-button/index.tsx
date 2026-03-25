@@ -25,17 +25,17 @@ export default function WishlistButton({
         e.stopPropagation()
         toggleItem(productId)
       }}
-      className={`${sizeClasses} flex items-center justify-center rounded-full border border-ui-border-base bg-white hover:bg-ui-bg-base-hover transition-colors`}
+      className={`${sizeClasses} flex items-center justify-center rounded-full bg-white/80 backdrop-blur-sm hover:bg-white shadow-sm hover:shadow transition-all duration-200`}
       aria-label={isWished ? t("removeFromWishlist") : t("addToWishlist")}
       data-testid="wishlist-button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        className={`${iconSize} transition-colors`}
+        className={`${iconSize} transition-all duration-200`}
         fill={isWished ? "#A90000" : "none"}
-        stroke={isWished ? "#A90000" : "currentColor"}
-        strokeWidth={2}
+        stroke={isWished ? "#A90000" : "#6B7280"}
+        strokeWidth={1.5}
       >
         <path
           strokeLinecap="round"
