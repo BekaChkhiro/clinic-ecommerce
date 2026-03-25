@@ -13,6 +13,7 @@ import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
 import { useRouter } from "next/navigation"
 import { useTranslations } from "next-intl"
+import WishlistButton from "@modules/wishlist/components/wishlist-button"
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
@@ -165,26 +166,29 @@ export default function ProductActions({
 
         <ProductPrice product={product} variant={selectedVariant} />
 
-        <Button
-          onClick={handleAddToCart}
-          disabled={
-            !inStock ||
-            !selectedVariant ||
-            !!disabled ||
-            isAdding ||
-            !isValidVariant
-          }
-          variant="primary"
-          className="w-full h-10"
-          isLoading={isAdding}
-          data-testid="add-product-button"
-        >
-          {!selectedVariant && !options
-            ? t("selectVariant")
-            : !inStock || !isValidVariant
-            ? t("outOfStock")
-            : t("addToCart")}
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={handleAddToCart}
+            disabled={
+              !inStock ||
+              !selectedVariant ||
+              !!disabled ||
+              isAdding ||
+              !isValidVariant
+            }
+            variant="primary"
+            className="flex-1 h-10"
+            isLoading={isAdding}
+            data-testid="add-product-button"
+          >
+            {!selectedVariant && !options
+              ? t("selectVariant")
+              : !inStock || !isValidVariant
+              ? t("outOfStock")
+              : t("addToCart")}
+          </Button>
+          <WishlistButton productId={product.id!} />
+        </div>
         <MobileActions
           product={product}
           variant={selectedVariant}

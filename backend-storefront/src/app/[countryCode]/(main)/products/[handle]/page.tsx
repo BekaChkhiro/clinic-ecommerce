@@ -2,10 +2,11 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
-import { getProductExtension } from "@lib/data/product-extension"
+import { getProductExtension, ProductExtension } from "@lib/data/product-extension"
 import ProductTemplate from "@modules/products/templates"
 import { HttpTypes } from "@medusajs/types"
 import { getLocale } from "next-intl/server"
+import { getBaseURL } from "@lib/util/env"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -112,13 +113,20 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       ? extension?.meta_description_ka || description
       : extension?.meta_description_en || description
 
+  const baseUrl = getBaseURL()
+
   return {
-    title: `${metaTitle} | MedPharma Plus`,
+    title: metaTitle,
     description: metaDescription,
     openGraph: {
       title: `${metaTitle} | MedPharma Plus`,
       description: metaDescription,
       images: product.thumbnail ? [product.thumbnail] : [],
+      type: "website",
+      url: `${baseUrl}/${params.countryCode}/products/${handle}`,
+    },
+    alternates: {
+      canonical: `${baseUrl}/${params.countryCode}/products/${handle}`,
     },
   }
 }
@@ -149,14 +157,91 @@ export default async function ProductPage(props: Props) {
     getProductExtension(pricedProduct.id!),
   ])
 
+  const baseUrl = getBaseURL()
+  const productUrl = `${baseUrl}/${params.countryCode}/products/${params.handle}`
+
+  const productName =
+    locale === "ka" && extension?.name_ka
+      ? extension.name_ka
+      : extension?.name_en || pricedProduct.title || ""
+
+  const productDescription =
+    locale === "ka" && extension?.description_ka
+      ? extension.description_ka
+      : extension?.description_en || pricedProduct.description || ""
+
+  const price = pricedProduct.variants?.[0]?.calculated_price
+  const amount = price?.calculated_amount
+  const currencyCode = price?.currency_code || "GEL"
+
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: productName,
+    description: productDescription,
+    image: pricedProduct.images?.map((i) => i.url) || [],
+    url: productUrl,
+    brand: {
+      "@type": "Brand",
+      name: "MedPharma Plus",
+    },
+    ...(amount != null && {
+      offers: {
+        "@type": "Offer",
+        price: amount,
+        priceCurrency: currencyCode.toUpperCase(),
+        availability:
+          (pricedProduct.variants?.[0] as any)?.inventory_quantity > 0
+            ? "https://schema.org/InStock"
+            : "https://schema.org/OutOfStock",
+        url: productUrl,
+      },
+    }),
+  }
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: locale === "ka" ? "მთავარი" : "Home",
+        item: `${baseUrl}/${params.countryCode}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: locale === "ka" ? "მაღაზია" : "Store",
+        item: `${baseUrl}/${params.countryCode}/store`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: productName,
+        item: productUrl,
+      },
+    ],
+  }
+
   return (
-    <ProductTemplate
-      product={pricedProduct}
-      region={region}
-      countryCode={params.countryCode}
-      images={images ?? []}
-      extension={extension}
-      locale={locale}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <ProductTemplate
+        product={pricedProduct}
+        region={region}
+        countryCode={params.countryCode}
+        images={images ?? []}
+        extension={extension}
+        locale={locale}
+      />
+    </>
   )
 }

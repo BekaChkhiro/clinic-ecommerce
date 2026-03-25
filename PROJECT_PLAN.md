@@ -10,7 +10,7 @@
 | **Target Users** | დიაბეტიკები, PKU პაციენტები, ჯანსაღი კვების მოყვარულები |
 | **Created** | 2026-03-23 |
 | **Last Updated** | 2026-03-23 |
-| **Current Focus** | T5.6 - Create Banner Admin Page |
+| **Current Focus** | T6.10 - Create Static Pages |
 | **Status** | In Progress |
 | **Last Updated** | 2026-03-25 |
 
@@ -20,8 +20,8 @@
 
 ### Overall Status
 **Total Tasks**: 47
-**Completed**: 21 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ (44%)
-**In Progress**: 7
+**Completed**: 26 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ (55%)
+**In Progress**: 4
 **Blocked**: 0
 
 ---
@@ -610,7 +610,7 @@ Page {
 > Medusa Admin-ის გაფართოება custom გვერდებით
 
 #### T5.1: Create Product Admin Extensions
-- [ ] **Status**: TODO
+- [x] **Status**: DONE ✅
 - **Complexity**: High
 - **Dependencies**: T2.1
 - **Estimated Hours**: 8
@@ -666,7 +666,7 @@ Page {
   - Add working hours editor
 
 #### T5.6: Create Banner Admin Page
-- [ ] **Status**: IN_PROGRESS 🔄
+- [x] **Status**: DONE ✅
 - **Complexity**: Medium
 - **Dependencies**: T2.6
 - **Estimated Hours**: 5
@@ -678,7 +678,7 @@ Page {
   - Add position selector
 
 #### T5.7: Create CMS Pages Admin
-- [ ] **Status**: TODO
+- [ ] **Status**: IN_PROGRESS 🔄
 - **Complexity**: Medium
 - **Dependencies**: T2.7
 - **Estimated Hours**: 5
@@ -774,7 +774,7 @@ Page {
   - Add breadcrumbs
 
 #### T6.6: Create Shopping Cart
-- [ ] **Status**: TODO
+- [x] **Status**: DONE ✅
 - **Complexity**: Medium
 - **Dependencies**: T6.5
 - **Estimated Hours**: 5
@@ -814,7 +814,7 @@ Page {
   - Show courier info when available
 
 #### T6.9: Implement Wishlist
-- [ ] **Status**: TODO
+- [x] **Status**: DONE ✅
 - **Complexity**: Low
 - **Dependencies**: T6.5
 - **Estimated Hours**: 3
@@ -825,7 +825,7 @@ Page {
   - Show wishlist count in header
 
 #### T6.10: Create Static Pages
-- [ ] **Status**: TODO
+- [ ] **Status**: IN_PROGRESS 🔄
 - **Complexity**: Low
 - **Dependencies**: T6.2, T2.7
 - **Estimated Hours**: 4
@@ -838,7 +838,7 @@ Page {
   - Create Branches page with map
 
 #### T6.11: Implement SEO
-- [ ] **Status**: TODO
+- [x] **Status**: DONE ✅
 - **Complexity**: Medium
 - **Dependencies**: T6.4, T6.5
 - **Estimated Hours**: 5

@@ -1,11 +1,19 @@
 import { Metadata } from "next"
+import { getLocale } from "next-intl/server"
 
 import { SortOptions } from "@modules/store/components/sort-dropdown"
 import StoreTemplate from "@modules/store/templates"
 
-export const metadata: Metadata = {
-  title: "Store",
-  description: "Explore all of our products.",
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale()
+  const isKa = locale === "ka"
+
+  return {
+    title: isKa ? "მაღაზია" : "Store",
+    description: isKa
+      ? "გაეცანით ჩვენს სპეციალურ დიეტურ პროდუქტებს - შაქრის შემცვლელები, PKU პროდუქტები, უგლუტენო პროდუქტები"
+      : "Browse our specialty dietary products - sugar substitutes, PKU products, gluten-free products",
+  }
 }
 
 type Params = {

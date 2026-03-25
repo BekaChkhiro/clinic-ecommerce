@@ -10,10 +10,12 @@ import { getRegion } from "@lib/data/regions"
 import { listBanners } from "@lib/data/banners"
 import { listCustomCategories } from "@lib/data/custom-categories"
 import { getLocale } from "@lib/data/locale-actions"
+import { getBaseURL } from "@lib/util/env"
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = (await getLocale()) || "ka"
   const isKa = locale === "ka"
+  const baseUrl = getBaseURL()
 
   return {
     title: isKa
@@ -22,6 +24,21 @@ export async function generateMetadata(): Promise<Metadata> {
     description: isKa
       ? "სპეციალური დიეტური პროდუქტების ონლაინ მაღაზია - შაქრის შემცვლელები, დაბალცილებიანი PKU პროდუქტები, უგლუტენო პროდუქტები"
       : "Online store for specialty dietary products - sugar substitutes, low protein PKU products, gluten-free products",
+    openGraph: {
+      title: isKa
+        ? "მედფარმა პლუსი - სპეციალური დიეტური პროდუქტები"
+        : "MedPharma Plus - Specialty Dietary Products",
+      description: isKa
+        ? "სპეციალური დიეტური პროდუქტების ონლაინ მაღაზია"
+        : "Online store for specialty dietary products",
+      url: baseUrl,
+      siteName: "MedPharma Plus",
+      type: "website",
+      locale: isKa ? "ka_GE" : "en_US",
+    },
+    alternates: {
+      canonical: baseUrl,
+    },
   }
 }
 
