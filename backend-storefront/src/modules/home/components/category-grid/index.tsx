@@ -36,7 +36,7 @@ export default function CategoryGrid({
             <LocalizedClientLink
               key={category.id}
               href={`/categories/${category.slug}`}
-              className="group relative overflow-hidden rounded-lg aspect-[4/3] bg-brand-gray-light"
+              className="group relative overflow-hidden rounded-lg aspect-[4/3] bg-brand-gray-light shadow-sm hover:shadow-lg transition-all duration-300"
             >
               {category.image ? (
                 <Image

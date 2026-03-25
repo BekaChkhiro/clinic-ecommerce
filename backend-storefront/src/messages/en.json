@@ -39,7 +39,12 @@
     "about": "About Us",
     "contact": "Contact",
     "faq": "FAQ",
-    "branches": "Branches"
+    "branches": "Branches",
+    "account": "Account"
+  },
+  "header": {
+    "phone": "+995 XXX XXX XXX",
+    "workingHours": "Mon-Sat: 10:00 - 20:00"
   },
   "footer": {
     "company": "Company",
@@ -55,7 +60,12 @@
     "categories": "Categories",
     "followUs": "Follow Us",
     "newsletter": "Newsletter",
-    "copyright": "© {year} MedPharma Plus. All rights reserved."
+    "copyright": "© {year} MedPharma Plus. All rights reserved.",
+    "slogan": "Your trusted partner for health and beauty",
+    "collections": "Collections",
+    "phone": "+995 XXX XXX XXX",
+    "email": "info@medpharma.ge",
+    "workingHours": "Mon-Sat: 10:00 - 20:00"
   },
   "home": {
     "heroTitle": "Your Trusted Health Partner",
@@ -65,7 +75,11 @@
     "topCategories": "Top Categories",
     "whyChooseUs": "Why Choose Us?",
     "viewAllProducts": "View All Products",
-    "viewAllCategories": "View All Categories"
+    "viewAllCategories": "View All Categories",
+    "trustDelivery": "Fast Delivery",
+    "trustQuality": "Quality Products",
+    "trustSupport": "Customer Support",
+    "trustCertified": "Certified Products"
   },
   "product": {
     "description": "Description",

@@ -1,4 +1,3 @@
-import { Text } from "@medusajs/ui"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
@@ -32,11 +31,18 @@ export default async function ProductPreview({
           <div className="absolute top-2 right-2 z-10">
             <WishlistButton productId={product.id!} size="sm" />
           </div>
+          {/* Hover "Add to Cart" hint */}
+          <div className="absolute bottom-0 left-0 right-0 bg-brand-red text-white text-center text-xs font-medium py-2.5 rounded-b-large opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+            + Add to Cart
+          </div>
         </div>
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
+        <div className="mt-3 flex flex-col gap-y-1">
+          <h3
+            className="text-sm font-medium text-gray-900 line-clamp-2 leading-snug"
+            data-testid="product-title"
+          >
             {product.title}
-          </Text>
+          </h3>
           <div className="flex items-center gap-x-2">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>

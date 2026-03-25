@@ -39,7 +39,12 @@
     "about": "ჩვენ შესახებ",
     "contact": "კონტაქტი",
     "faq": "ხშირად დასმული კითხვები",
-    "branches": "ფილიალები"
+    "branches": "ფილიალები",
+    "account": "ანგარიში"
+  },
+  "header": {
+    "phone": "+995 XXX XXX XXX",
+    "workingHours": "ორშ-შაბ: 10:00 - 20:00"
   },
   "footer": {
     "company": "კომპანია",
@@ -55,7 +60,12 @@
     "categories": "კატეგორიები",
     "followUs": "გამოგვყევით",
     "newsletter": "სიახლეები",
-    "copyright": "© {year} მედფარმა პლუსი. ყველა უფლება დაცულია."
+    "copyright": "© {year} მედფარმა პლუსი. ყველა უფლება დაცულია.",
+    "slogan": "სანდო პარტნიორი თქვენი ჯანმრთელობისა და სილამაზის სამსახურში",
+    "collections": "კოლექციები",
+    "phone": "+995 XXX XXX XXX",
+    "email": "info@medpharma.ge",
+    "workingHours": "ორშ-შაბ: 10:00 - 20:00"
   },
   "home": {
     "heroTitle": "სანდო პარტნიორი თქვენი ჯანმრთელობის სამსახურში",
@@ -65,7 +75,11 @@
     "topCategories": "პოპულარული კატეგორიები",
     "whyChooseUs": "რატომ ჩვენ?",
     "viewAllProducts": "ყველა პროდუქტის ნახვა",
-    "viewAllCategories": "ყველა კატეგორიის ნახვა"
+    "viewAllCategories": "ყველა კატეგორიის ნახვა",
+    "trustDelivery": "სწრაფი მიწოდება",
+    "trustQuality": "ხარისხიანი პროდუქტები",
+    "trustSupport": "მომხმარებელთა მხარდაჭერა",
+    "trustCertified": "სერთიფიცირებული პროდუქტები"
   },
   "product": {
     "description": "აღწერა",
