@@ -12,7 +12,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
 import { useRouter } from "next/navigation"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import WishlistButton from "@modules/wishlist/components/wishlist-button"
 
 type ProductActionsProps = {
@@ -37,6 +37,7 @@ export default function ProductActions({
 }: ProductActionsProps) {
   const t = useTranslations("common")
   const tProduct = useTranslations("product.shipping")
+  const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
