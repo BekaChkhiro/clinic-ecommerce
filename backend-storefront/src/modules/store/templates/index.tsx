@@ -44,42 +44,56 @@ const StoreTemplate = async ({
   ])
 
   const dietaryFilters = filters?.dietary?.split(",").filter(Boolean) || []
-  const productCount = 0 // Will be updated by PaginatedProducts
 
   return (
-    <div className="py-6 content-container">
-      {/* Header */}
-      <div className="flex flex-col small:flex-row small:items-center small:justify-between mb-6 px-4 small:px-0">
-        <h1 className="text-2xl font-semibold text-ui-fg-base" data-testid="store-page-title">
-          {t("allProducts")}
-        </h1>
-        <div className="flex items-center gap-x-4 mt-3 small:mt-0">
-          <SortDropdown sortBy={sort} />
+    <div className="min-h-screen bg-gray-50/50">
+      {/* Hero Banner */}
+      <div className="bg-white border-b border-gray-100">
+        <div className="content-container py-10 small:py-14">
+          <div className="flex flex-col small:flex-row small:items-end small:justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-red mb-3">
+                {t("allProducts")}
+              </p>
+              <h1
+                className="text-3xl small:text-4xl font-bold text-gray-900 tracking-tight"
+                data-testid="store-page-title"
+              >
+                {locale === "ka" ? "მაღაზია" : "Shop"}
+              </h1>
+              <div className="mt-2 w-12 h-1 bg-brand-red rounded-full" />
+            </div>
+            <div className="flex items-center gap-3">
+              <SortDropdown sortBy={sort} />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="flex flex-col small:flex-row small:items-start">
-        <FiltersSidebar
-          categories={categories}
-          brands={brands}
-          locale={locale}
-          activeCategory={filters?.category}
-          activeBrand={filters?.brand}
-          dietaryFilters={dietaryFilters}
-          inStockOnly={filters?.inStock === "true"}
-          searchQuery={filters?.q}
-        />
+      {/* Main Content */}
+      <div className="content-container py-8">
+        <div className="flex flex-col small:flex-row small:items-start gap-8">
+          <FiltersSidebar
+            categories={categories}
+            brands={brands}
+            locale={locale}
+            activeCategory={filters?.category}
+            activeBrand={filters?.brand}
+            dietaryFilters={dietaryFilters}
+            inStockOnly={filters?.inStock === "true"}
+            searchQuery={filters?.q}
+          />
 
-        <div className="w-full px-4 small:px-0">
-          <Suspense fallback={<SkeletonProductGrid />}>
-            <PaginatedProducts
-              sortBy={sort}
-              page={pageNumber}
-              countryCode={countryCode}
-              filters={filters}
-            />
-          </Suspense>
+          <div className="w-full min-w-0">
+            <Suspense fallback={<SkeletonProductGrid />}>
+              <PaginatedProducts
+                sortBy={sort}
+                page={pageNumber}
+                countryCode={countryCode}
+                filters={filters}
+              />
+            </Suspense>
+          </div>
         </div>
       </div>
     </div>

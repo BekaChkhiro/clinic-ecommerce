@@ -77,8 +77,6 @@ export default async function PaginatedProducts({
   })
 
   // Client-side filtering for custom fields (metadata-based)
-  // These filters are applied after fetching since custom extensions
-  // aren't directly queryable through the standard Medusa product API
   if (filters?.dietary) {
     const tags = filters.dietary.split(",").filter(Boolean)
     const tagToMetaKey: Record<string, string> = {
@@ -113,14 +111,16 @@ export default async function PaginatedProducts({
 
   if (products.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-ui-fg-muted mb-4">
-          <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
-        </svg>
-        <p className="text-lg font-medium text-ui-fg-base mb-2">
+      <div className="flex flex-col items-center justify-center py-24 text-center">
+        <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400">
+            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+          </svg>
+        </div>
+        <p className="text-lg font-semibold text-gray-900 mb-2">
           {t("noProducts")}
         </p>
-        <p className="text-sm text-ui-fg-muted">
+        <p className="text-sm text-gray-500 max-w-sm">
           {t("noProductsHint")}
         </p>
       </div>
@@ -129,11 +129,13 @@ export default async function PaginatedProducts({
 
   return (
     <>
-      <p className="text-sm text-ui-fg-muted mb-4">
-        {t("showingResults", { count })}
-      </p>
+      <div className="flex items-center justify-between mb-6">
+        <p className="text-sm text-gray-500">
+          {t("showingResults", { count })}
+        </p>
+      </div>
       <ul
-        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
+        className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-4 small:gap-6"
         data-testid="products-list"
       >
         {products.map((p) => {
